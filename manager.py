@@ -3,7 +3,8 @@
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Shell
-from myapp import app
+from myapp import app, db
+from models import Student, Teacher, Course, Grade
 from views import *
 
 
@@ -18,4 +19,3 @@ manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
-    # app.run(debug=True)
