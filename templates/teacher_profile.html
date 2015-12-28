@@ -1,0 +1,18 @@
+{% extends "teacher_base.html" %}
+{% block page_right %}
+<div class="col-md-4">
+  <table class="table table-bordered">
+    <caption>个人信息</caption>
+    <tbody>
+    <tr>
+      <th scope="row">姓名</th>
+      <td>{{ user.name }}</td>
+    </tr>
+    <tr>
+      <th scope="row">证件号</th>
+      <td>{{ user.id }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

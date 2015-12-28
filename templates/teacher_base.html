@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ current_user.name }}{% endblock %}
+
+{% block page_content %}
+<div class="col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li><a href="{{ url_for('home') }}">主页</a></li>
+    <li><a href="{{ url_for('all_stus') }}">查询学生信息</a></li>
+    <li><a href="{{ url_for('add_stu') }}">新增学生信息</a></li>
+    <li><a href="{{ url_for('del_stu') }}">删除学生信息</a></li>
+    <li><a href="{{ url_for('all_grades') }}">查询学生成绩</a></li>
+    <li><a href="{{ url_for('add_grade') }}">新增学生成绩</a></li>
+    <li><a href="{{ url_for('profile') }}">个人信息</a></li>
+    <li><a href="{{ url_for('change_passwd') }}">修改密码</a></li>
+  </ul>
+</div>
+
+{% block page_right %}{% endblock %}
+
+{% endblock %}

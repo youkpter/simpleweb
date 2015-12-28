@@ -1,0 +1,15 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% if current_user.__tablename__ == 'students' %}
+    {% extends "stu_base.html" %}
+{% else %}
+    {% extends "teacher_base.html" %}
+{% endif %}
+
+{% block title %}修改密码{% endblock %}
+
+{% block page_right %}
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}

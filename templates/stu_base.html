@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ current_user.name }}{% endblock %}
+
+{% block page_content %}
+{% block page_left %}
+<div class="col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li><a href="{{ url_for('home') }}">主页</a></li>
+    <li><a href="{{ url_for('grades') }}">查询成绩</a></li>
+    <li><a href="{{ url_for('profile') }}">个人信息</a></li>
+    <li><a href="{{ url_for('change_passwd') }}">修改密码</a></li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block page_right %}{% endblock %}
+
+{% endblock %}

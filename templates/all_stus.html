@@ -1,0 +1,33 @@
+{% extends "teacher_base.html" %}
+{% import "macros.html" as macros %}
+
+{% block page_right %}
+<div class="col-md-6">
+  <table class="table table-bordered table-hover">
+    <caption>学生信息汇总表</caption>
+    <thead>
+    <tr>
+      <th>学号</th>
+      <th>姓名</th>
+      <th>班级</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for stu in stus %}
+      <tr>
+        <td>{{ stu.id }}</td>
+        <td>{{ stu.name }}</td>
+        <td>{{ stu.Class }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, 'all_stus') }}
+</div>
+{% endif %}
+</div>
+
+
+{% endblock %}

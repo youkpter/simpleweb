@@ -1,0 +1,7 @@
+*.pyc
+*.swp
+devdata
+
+*.sqlite
+
+venv

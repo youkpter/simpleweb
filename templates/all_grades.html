@@ -1,0 +1,137 @@
+{% extends "teacher_base.html" %}
+{% import "macros.html" as macros %}
+
+{% block scripts %}
+    {{ super() }}
+<script type="text/javascript">
+$('.editGrade').click(function(e){
+    var p  = $(e.target).parent().parent()
+    var grade_id = $(e.target).data('id')
+    var content = p.children(":lt(5)")
+    var id      = content[0].innerHTML
+    var name    = content[1].innerHTML
+    var Class   = content[2].innerHTML
+    var course  = content[3].innerHTML
+    var grade   = content[4].innerHTML
+
+    var modal = $('#gradeModal')
+    modal.find('#id').val(id)
+    modal.find('#name').val(name)
+    modal.find('#class').val(Class)
+    modal.find('#course').val(course)
+    modal.find('#grade').val(grade)
+    modal.find('#updateBtn').attr('data-id', grade_id)
+    modal.modal({backdrop:"static", show:true})
+});
+$('#updateBtn').click(function(e) {
+    var grade_id = $(e.target).data('id')
+    var grade = $('#grade').val()
+    $.post("/update_grade", {grade_id:grade_id, grade:grade},
+           function() {window.location.href = "all_grades"})
+})
+$('.deleteGrade').click(function(e) {
+    var grade_id = $(e.target).data('id')
+    var modal = $('#confirmModal')
+    modal.find('#confirmBtn').attr('data-id', grade_id)
+    modal.modal({backdrop:"static", show:true})
+})
+$('#confirmBtn').click(function(e) {
+    var grade_id = $(e.target).data('id')
+    $.post("/delete_grade", {id:grade_id},
+           function() {window.location.href = "all_grades"})
+})
+</script>
+{% endblock %}
+
+{% block page_right %}
+<div class="col-md-8">
+  <table class="table table-bordered table-hover">
+    <caption>学生成绩汇总表</caption>
+    <thead>
+    <tr>
+      <th>学号</th>
+      <th>姓名</th>
+      <th>班级</th>
+      <th>课程</th>
+      <th>成绩</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for grade in grades %}
+      <tr>
+        <td>{{ grade.stu_id }}</td>
+        <td>{{ grade.student.name }}</td>
+        <td>{{ grade.student.Class }}</td>
+        <td>{{ grade.course.name }}</td>
+        <td>{{ grade.grade }}</td>
+        <td>
+          <a href="javascript:;" class="editGrade" data-id="{{ grade.id }}">
+            编辑
+          </a>
+          &nbsp;&nbsp;
+          <a href="javascript:;" class="deleteGrade" data-id="{{ grade.id }}">
+            删除
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, 'all_grades') }}
+</div>
+{% endif %}
+</div>
+
+<div id="gradeModal" class="modal" tabindex="-1" role="dialog">
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body col-md-offset-2">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label>学号</label>
+              <input type="text" id="id" disabled>
+           </div>
+            <div class="form-group">
+              <label>姓名</label>
+              <input type="text" id="name" disabled>
+           </div>
+            <div class="form-group">
+              <label>班级</label>
+              <input type="text" id="class" disabled>
+           </div>
+            <div class="form-group">
+              <label>课程</label>
+              <input type="text" id="course" disabled>
+           </div>
+            <div class="form-group">
+              <label>成绩</label>
+              <input type="number" id="grade">
+           </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-danger" data-dismiss="modal"
+              id="updateBtn">确认</a>
+            <a class="btn" data-dismiss="modal">取消</a>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body col-md-offset-2">
+          <p> 确认删除该成绩? </p>
+        </div>
+          <div class="modal-footer">
+              <a class="btn btn-danger" data-dismiss="modal"
+                id="confirmBtn">确认</a>
+              <a class="btn" data-dismiss="modal">取消</a>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

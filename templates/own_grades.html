@@ -1,0 +1,23 @@
+{% extends "stu_base.html" %}
+
+{% block page_right %}
+<div class="col-md-4">
+  <table class="table table-bordered table-hover">
+    <caption>个人成绩表</caption>
+    <thead>
+    <tr>
+      <th>课程</th>
+      <th>成绩</th>
+    </thead>
+    </tr>
+    <tbody>
+      {% for grade in grades %}
+      <tr>
+        <td>{{ grade.course.name }}</td>
+        <td>{{ grade.grade }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
