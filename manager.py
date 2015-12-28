@@ -5,7 +5,7 @@ from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Shell
 from myapp import app, db
 from models import Student, Teacher, Course, Grade
-# from views import *
+from views import *
 
 
 def make_shell_context():
