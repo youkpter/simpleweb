@@ -29,6 +29,12 @@ class Student(UserMixin, db.Model):
         self.Class = Class
         self.password_hash = password
 
+    @staticmethod
+    def add_stu1():
+        stu1 = Student(1234567890, 'stu1', 123, 'stu1')
+        db.session.add(stu1)
+        db.session.commit()
+
     def __repr__(self):
         return '<Student %r>' % self.id
 
@@ -54,6 +60,12 @@ class Teacher(UserMixin, db.Model):
         self.id = id
         self.name = name
         self.password_hash = password
+
+    @staticmethod
+    def add_teacher1():
+        th1 = Teacher(1234567891, u'李老师', 'th1')
+        db.session.add(th1)
+        db.session.commit()
 
     def __repr__(self):
         return '<Teacher %r>' % self.id
