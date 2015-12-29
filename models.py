@@ -31,7 +31,7 @@ class Student(UserMixin, db.Model):
 
     @staticmethod
     def add_stu1():
-        stu1 = Student(1234567890, 'stu1', 123, 'stu1')
+        stu1 = Student(1234567890, 'stu1', 123)
         db.session.add(stu1)
         db.session.commit()
 
@@ -56,14 +56,14 @@ class Teacher(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, id, name, password):
+    def __init__(self, id, name, password=app.config['DEFAULT_PASSWD']):
         self.id = id
         self.name = name
         self.password_hash = password
 
     @staticmethod
     def add_teacher1():
-        th1 = Teacher(1234567891, u'李老师', 'th1')
+        th1 = Teacher(1234567891, u'李老师')
         db.session.add(th1)
         db.session.commit()
 
